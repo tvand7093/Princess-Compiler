@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include "parser.hpp"
 #include <string.h>
+#include "../src/main.hpp"
 %}
 
 %%
@@ -22,10 +23,4 @@
 . {
   printf("Unknown token!\n");
   yyterminate();
-}
-
-%%
-
-int yywrap() {
-    return 0;
 }
