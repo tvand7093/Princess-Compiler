@@ -1,24 +1,24 @@
 
+SRC = src
+INTERMEDIATE = build
+OUTDIR = bin
+LANGUAGE = lang_spec
+
 all: outdir princess
 
-princess: grammar scanner
-	cc bin/grammar.tab.c bin/scanner.yy.c -o bin/$@
+princess: parser tokenizer
+	g++ -o $(OUTDIR)/$@  $(INTERMEDIATE)/parser.cpp $(INTERMEDIATE)/tokenizer.cpp $(SRC)/main.cpp
 
-grammar: grammar.y
-	yacc -v -d $@.y
-	mv y.tab.c bin/$@.tab.c
-	mv y.tab.h bin/$@.tab.h
-	mv y.output bin/$@.output
+tokenizer: $(LANGUAGE)/tokenizer.l
+	lex -o $(INTERMEDIATE)/$@.cpp $(LANGUAGE)/$@.l
 
-
-scanner: scanner.l
-	lex -o bin/$@.yy.c $@.l
+parser:  $(LANGUAGE)/parser.y
+	bison -v -d -o $(INTERMEDIATE)/$@.cpp $(LANGUAGE)/$@.y
 
 outdir:
-	mkdir -p bin
+	mkdir -p $(OUTDIR)
+	mkdir -p $(INTERMEDIATE)
 
 clean:
-	@rm -rf bin
+	@rm -rf $(OUTDIR) $(INTERMEDIATE)
 	@rm -f *~ *#
-	@rm *.tab.c
-	@rm .out

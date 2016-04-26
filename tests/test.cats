@@ -1,3 +1,4 @@
-meow hello
-meow woohoo!
-meow BLAHAHA
+
+var main {
+    meow "hello!";
+}
