@@ -8,7 +8,6 @@
 #include <unistd.h>
 #include "LanguageDriver.hh"
 
-
 extern FILE* yyin;
 
 int file_num = 0;
