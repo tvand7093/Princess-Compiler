@@ -1,18 +1,21 @@
 
+FRONTEND = frontend
+ROOT = $(shell pwd)
+OUTPUT = bin
 
 all: bin frontend
 
 frontend: princess
-	mv src/princess bin/princess
+	mv $(FRONTEND)/princess $(OUTPUT)/princess
 
 princess:
-	cd src && make all && cd ../
+	cd $(FRONTEND) && make all && cd $(ROOT)
 
 bin:
-	@mkdir bin
+	@mkdir $(OUTPUT)
 
 clean: clobber
 
 clobber:
-	rm -rf bin
-	cd src && make clobber
+	rm -rf $(OUTPUT)
+	cd $(FRONTEND) && make clobber && cd $(ROOT)
