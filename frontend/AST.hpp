@@ -1,7 +1,7 @@
 /** \file expression.h Implements an example calculator class group. */
 
-#ifndef EXPRESSION_H
-#define EXPRESSION_H
+#ifndef AST_H
+#define AST_H
 
 #include <map>
 #include <vector>
@@ -9,14 +9,15 @@
 #include <stdexcept>
 #include <cmath>
 
+namespace PL {
 /** CalcNode is the abstract base class for calculation nodes. From it the
  * different nullary, unary and binary nodes are derived. */
-class CalcNode
+class BaseNode
 {
 public:
   /// required for virtual functions. in the derived classes the operands are
   /// deleted.
-  virtual ~CalcNode()
+  virtual ~BaseNode()
   {
   }
 
@@ -36,7 +37,7 @@ public:
 };
 
 /** Calculation node always returning a constant value. */
-class CNConstant : public CalcNode
+class CNConstant : public BaseNode
 {
   /// the constant value returned
   double value;
@@ -44,7 +45,7 @@ class CNConstant : public CalcNode
 public:
   /// construct a constant calculation node from a value
   explicit CNConstant(double _value)
-    : CalcNode(), value(_value)
+    : BaseNode(), value(_value)
   {
   }
 
@@ -60,14 +61,14 @@ public:
 };
 
 /** Calculation node negating the value of the operand subtree. */
-class CNNegate : public CalcNode
+class CNNegate : public BaseNode
 {
   /// calculation subtree
-  CalcNode* node;
+  BaseNode* node;
 
 public:
-  explicit CNNegate(CalcNode* _node)
-    : CalcNode(), node(_node)
+  explicit CNNegate(BaseNode* _node)
+    : BaseNode(), node(_node)
   {
   }
 
@@ -89,17 +90,17 @@ public:
 };
 
 /** Calculation node adding two operand nodes. */
-class CNAdd : public CalcNode
+class CNAdd : public BaseNode
 {
   /// left calculation operand
-  CalcNode* left;
+  BaseNode* left;
 
   /// right calculation operand
-  CalcNode* right;
+  BaseNode* right;
     
 public:
-  explicit CNAdd(CalcNode* _left, CalcNode* _right)
-    : CalcNode(), left(_left), right(_right)
+  explicit CNAdd(BaseNode* _left, BaseNode* _right)
+    : BaseNode(), left(_left), right(_right)
   {
   }
 
@@ -123,17 +124,17 @@ public:
 };
 
 /** Calculation node subtracting two operand nodes. */
-class CNSubtract : public CalcNode
+class CNSubtract : public BaseNode
 {
   /// left calculation operand
-  CalcNode* left;
+  BaseNode* left;
 
   /// right calculation operand
-  CalcNode* right;
+  BaseNode* right;
     
 public:
-  explicit CNSubtract(CalcNode* _left, CalcNode* _right)
-    : CalcNode(), left(_left), right(_right)
+  explicit CNSubtract(BaseNode* _left, BaseNode* _right)
+    : BaseNode(), left(_left), right(_right)
   {
   }
 
@@ -157,17 +158,17 @@ public:
 };
 
 /** Calculation node multiplying two operand nodes. */
-class CNMultiply : public CalcNode
+class CNMultiply : public BaseNode
 {
   /// left calculation operand
-  CalcNode* left;
+  BaseNode* left;
 
   /// right calculation operand
-  CalcNode* right;
+  BaseNode* right;
     
 public:
-  explicit CNMultiply(CalcNode* _left, CalcNode* _right)
-    : CalcNode(), left(_left), right(_right)
+  explicit CNMultiply(BaseNode* _left, BaseNode* _right)
+    : BaseNode(), left(_left), right(_right)
   {
   }
 
@@ -191,17 +192,17 @@ public:
 };
 
 /** Calculation node dividing two operand nodes. */
-class CNDivide : public CalcNode
+class CNDivide : public BaseNode
 {
   /// left calculation operand
-  CalcNode* left;
+  BaseNode* left;
 
   /// right calculation operand
-  CalcNode* right;
+  BaseNode* right;
     
 public:
-  explicit CNDivide(CalcNode* _left, CalcNode* _right)
-    : CalcNode(), left(_left), right(_right)
+  explicit CNDivide(BaseNode* _left, BaseNode* _right)
+    : BaseNode(), left(_left), right(_right)
   {
   }
 
@@ -226,17 +227,17 @@ public:
 
 /** Calculation node calculating the remainder of an integer division of two
  * operand nodes. */
-class CNModulo : public CalcNode
+class CNModulo : public BaseNode
 {
   /// left calculation operand
-  CalcNode* left;
+  BaseNode* left;
 
   /// right calculation operand
-  CalcNode* right;
+  BaseNode* right;
     
 public:
-  explicit CNModulo(CalcNode* _left, CalcNode* _right)
-    : CalcNode(), left(_left), right(_right)
+  explicit CNModulo(BaseNode* _left, BaseNode* _right)
+    : BaseNode(), left(_left), right(_right)
   {
   }
 
@@ -260,17 +261,17 @@ public:
 };
 
 /** Calculation node raising one operand to the power of the second. */
-class CNPower : public CalcNode
+class CNPower : public BaseNode
 {
   /// left calculation operand
-  CalcNode* left;
+  BaseNode* left;
 
   /// right calculation operand
-  CalcNode* right;
+  BaseNode* right;
     
 public:
-  explicit CNPower(CalcNode* _left, CalcNode* _right)
-    : CalcNode(), left(_left), right(_right)
+  explicit CNPower(BaseNode* _left, BaseNode* _right)
+    : BaseNode(), left(_left), right(_right)
   {
   }
 
@@ -308,7 +309,7 @@ public:
 
   /// array of unassigned expressions found by the parser. these are then
   /// outputted to the user.
-  std::vector<CalcNode*> expressions;
+  std::vector<BaseNode*> expressions;
 
   /// free the saved expression trees
   ~CalcContext()
@@ -343,5 +344,5 @@ public:
       return vi->second;
   }
 };
-
+}
 #endif // EXPRESSION_H

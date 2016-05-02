@@ -6,7 +6,7 @@
 
 
 int main(int argc, char* argv[]){
-  CalcContext calc;
+  PL::CalcContext calc;
   PL::Driver driver(calc);
   bool readfile = false;
 

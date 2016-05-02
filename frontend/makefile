@@ -2,7 +2,7 @@ CXX = g++
 LEX = flex
 YACC = bison
 
-CXXFLAGS = -W -Wall -Wextra -ansi -g
+CXXFLAGS = -W -Wall -Wextra -ansi -g -emit-llvm
 LDFLAGS = 
 
 HEADERS = driver.h parser.h scanner.h expression.h \

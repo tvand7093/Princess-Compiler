@@ -8,8 +8,9 @@
 #include <vector>
 
 // forward declaration
+namespace PL {
 class CalcContext;
-
+}
 /** The example namespace is used to encapsulate the three parser classes
  * example::Parser, example::Scanner and example::Driver */
 namespace PL {
@@ -24,7 +25,7 @@ class Driver
 {
 public:
     /// construct a new parser driver context
-    Driver(class CalcContext& calc);
+  Driver(class CalcContext& calc);
 
     /// enable debug output in the flex scanner
     bool trace_scanning;
