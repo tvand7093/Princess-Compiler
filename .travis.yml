@@ -1,4 +1,5 @@
 language: cpp
+install:
 script: make
 compiler:
   - clang
@@ -6,5 +7,5 @@ compiler:
 addons:
   apt:
     packages:
-    - bison
+    - bison-3.0.4
     - flex
