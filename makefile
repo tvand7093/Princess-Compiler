@@ -3,6 +3,14 @@ FRONTEND = frontend
 ROOT = $(shell pwd)
 OUTPUT = bin
 SYSTEM = $(shell uname -s)
+DEP-INSTALL = ''
+
+ifeq ($(SYSTEM),Linux)
+	DEP-INSTALL = apt-get install bison flex
+endif
+ifeq ($(SYSTEM),Darwin)
+	DEP-INSTALL = brew install bison flex
+endif
 
 all: bin frontend
 
@@ -13,12 +21,7 @@ princess:
 	cd $(FRONTEND) && make all && cd $(ROOT)
 
 install-deps:
-	ifeq ($(SYSTEM),Linux)
-		apt-get install bison flex
-	endif
-	ifeq ($(SYSTEM),Darwin)
-		brew install bison flex
-	endif
+	$(DEP-INSTALL)
 
 bin:
 	@mkdir $(OUTPUT)
