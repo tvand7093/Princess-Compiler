@@ -13,7 +13,7 @@
 /*** yacc/bison Declarations ***/
 
 /* Require bison 2.3 or later */
-%require "3.0.4"
+%require "2.5"
 
 /* add debug output code to generated parser. disable this for release
  * versions. */
