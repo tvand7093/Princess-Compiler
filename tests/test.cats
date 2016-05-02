@@ -1,4 +1,0 @@
-
-var main {
-    meow "hello!";
-}
