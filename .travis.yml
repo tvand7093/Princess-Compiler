@@ -1,5 +1,8 @@
 language: cpp
+sudo: required
 install:
+  sudo apt-get upgrade bison
+  sudo apt-get upgrade flex
 script: make
 compiler:
   - clang
@@ -7,5 +10,5 @@ compiler:
 addons:
   apt:
     packages:
-    - bison-3.0.4
+    - bison
     - flex
