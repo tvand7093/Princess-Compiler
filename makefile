@@ -6,7 +6,7 @@ SYSTEM = $(shell uname -s)
 DEP-INSTALL = ''
 
 ifeq ($(SYSTEM),Linux)
-	DEP-INSTALL = apt-get install bison flex
+	DEP-INSTALL = sudo apt-get install bison flex
 endif
 ifeq ($(SYSTEM),Darwin)
 	DEP-INSTALL = brew install bison flex
@@ -22,6 +22,8 @@ princess:
 
 install-deps:
 	$(DEP-INSTALL)
+	echo 'Using bison: $(bison --version)'
+	echo 'Using flex: $(bison --version)'
 
 bin:
 	@mkdir $(OUTPUT)
