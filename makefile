@@ -22,8 +22,8 @@ princess:
 
 install-deps:
 	$(DEP-INSTALL)
-	echo 'Using bison: $(bison --version)'
-	echo 'Using flex: $(bison --version)'
+	echo **** BISON VERSION **** $(bison --version)
+	echo **** FLEX VERSION **** $(flex --version)
 
 bin:
 	@mkdir $(OUTPUT)
