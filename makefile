@@ -6,7 +6,7 @@ SYSTEM = $(shell uname -s)
 DEP-INSTALL = ''
 
 ifeq ($(SYSTEM),Linux)
-	DEP-INSTALL = sudo apt-get install flex bison pkg=3.0.4
+	DEP-INSTALL = sudo apt-get install flex bison=3.0.4
 endif
 ifeq ($(SYSTEM),Darwin)
 	DEP-INSTALL = brew install bison flex
