@@ -1,12 +1,12 @@
 language: cpp
-sudo: required
-install: make install-deps
 script: make
 compiler:
   - clang
   - gcc
 addons:
   apt:
+    sources:
+    - xenial
     packages:
     - bison
     - flex
