@@ -1,6 +1,10 @@
-sudo: required
-install: make install-deps
 language: cpp
+script: make
 compiler:
   - clang
   - gcc
+addons:
+  apt:
+    packages:
+    - bison
+    - flex
