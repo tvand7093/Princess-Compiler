@@ -2,6 +2,7 @@
 FRONTEND = frontend
 ROOT = $(shell pwd)
 OUTPUT = bin
+SYSTEM = $(shell uname -s)
 
 all: bin frontend
 
@@ -12,7 +13,6 @@ princess:
 	cd $(FRONTEND) && make all && cd $(ROOT)
 
 install-deps:
-	SYSTEM := $(shell uname -s)
 	ifeq ($(SYSTEM),Linux)
 		apt-get install bison flex
 	endif
