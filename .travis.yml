@@ -1,3 +1,4 @@
+sudo: required
 install: make install-deps
 language: cpp
 compiler:
