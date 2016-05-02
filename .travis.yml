@@ -5,12 +5,9 @@ before_install:
   - brew update
   - brew install flex
   - brew install bison
+  - brew link bison --force
+
 script: make
 compiler:
   - clang
   - gcc
-addons:
-  apt:
-    packages:
-    - bison
-    - flex
