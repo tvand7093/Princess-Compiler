@@ -1,0 +1,5 @@
+install: make install-deps
+language: cpp
+compiler:
+  - clang
+  - gcc
