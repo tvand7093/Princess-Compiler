@@ -9,7 +9,7 @@ ifeq ($(SYSTEM),Linux)
 	DEP-INSTALL = sudo apt-get install flex bison=3.0.4
 endif
 ifeq ($(SYSTEM),Darwin)
-	DEP-INSTALL = brew install bison flex
+	DEP-INSTALL = brew update && brew install bison flex && brew link bison --force
 endif
 
 all: bin frontend
