@@ -5,6 +5,13 @@ OUTPUT = bin
 SYSTEM = $(shell uname -s)
 DEP-INSTALL = ''
 
+ifeq ($(SYSTEM),Linux)
+	DEP-INSTALL = sudo apt-get install flex bison pkg=3.0.4
+endif
+ifeq ($(SYSTEM),Darwin)
+	DEP-INSTALL = brew install bison flex
+endif
+
 all: bin frontend
 
 frontend: princess
@@ -14,8 +21,7 @@ princess:
 	cd $(FRONTEND) && make all && cd $(ROOT)
 
 install-deps:
-	echo **** BISON VERSION **** $(bison --version)
-	echo **** FLEX VERSION **** $(flex --version)
+	$(DEP-INSTALL)
 
 bin:
 	@mkdir $(OUTPUT)

@@ -1,8 +1,6 @@
 language: cpp
 sudo: required
-install:
-  sudo apt-get upgrade bison
-  sudo apt-get upgrade flex
+install: make install-deps
 script: make
 compiler:
   - clang
