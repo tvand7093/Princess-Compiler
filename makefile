@@ -6,6 +6,9 @@ OUTPUT = bin
 SYSTEM = $(shell uname -s)
 DEP-INSTALL = ''
 
+FRONTEND_EXEC = $(FRONTEND)/frontend
+
+
 ifeq ($(SYSTEM),Linux)
 	DEP-INSTALL = sudo apt-get install flex bison=3.0.4
 endif
@@ -13,21 +16,20 @@ ifeq ($(SYSTEM),Darwin)
 	DEP-INSTALL = brew update && brew install bison flex && brew link bison --force
 endif
 
-all: bin frontend
+all: bin $(OUTPUT)/$(FRONTEND)
 
 test: $(FRONTEND)-$(TESTS)
 	./$(OUTPUT)/$(FRONTEND)-$(TESTS)
-
 
 $(FRONTEND)-$(TESTS): bin
 	cd $(TESTS) && make
 	mv $(TESTS)/$(OUTPUT)/$@ $(OUTPUT)/$@
 
-frontend: princess
-	mv $(FRONTEND)/$^ $(OUTPUT)/$@
+$(OUTPUT)/$(FRONTEND): $(FRONTEND_EXEC)
+	mv $^ $@
 
-princess:
-	cd $(FRONTEND) && make all && cd $(ROOT)
+$(FRONTEND_EXEC):
+	cd $(FRONTEND) && make all
 
 install-deps:
 	$(DEP-INSTALL)

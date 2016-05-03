@@ -5,18 +5,25 @@ YACC = bison
 CXXFLAGS = -W -Wall -Wextra -ansi -g
 LDFLAGS = 
 
+OBJ = obj
+OBJECTS = princess.o parser.o scanner.o driver.o
+
+OUT_EXEC = frontend
+
 HEADERS = driver.h parser.h scanner.h expression.h \
     y.tab.h PrincessFlexLexer.h location.hh position.hh stack.hh
 
-all: princess
+all: $(OUT_EXEC) move-objs
+
+move-objs: $(OBJ) $(OBJECTS)
+	@mv *.o $(OBJ)/
 
 # Generate scanner and parser
-
 parser.cpp: parser.yy
-	$(YACC) -o parser.cpp --defines=parser.h parser.yy
+	$(YACC) -o $@ --defines=parser.h $^ 
 
 scanner.cpp: scanner.ll
-	$(LEX) -o scanner.cpp scanner.ll
+	$(LEX) -o $@ $^
 
 # Implicit rule to compile c++ files
 
@@ -25,11 +32,14 @@ scanner.cpp: scanner.ll
 
 # Link executable
 
-princess: princess.o parser.o scanner.o driver.o
-	$(CXX) $(LDFLAGS) -o $@ princess.o parser.o scanner.o driver.o
+$(OUT_EXEC): $(OBJECTS)
+	$(CXX) $(LDFLAGS) -o $@ $^
 
 clean:
 	rm -f princess *.o *~ \#*
 
 clobber: clean
 	rm -f parser.cpp parser.h scanner.cpp
+
+$(OBJ):
+	@mkdir -p $@
