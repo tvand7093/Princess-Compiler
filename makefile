@@ -15,7 +15,9 @@ endif
 
 all: bin frontend
 
-tests: $(FRONTEND)-$(TESTS)
+test: $(FRONTEND)-$(TESTS)
+	./$(OUTPUT)/$(FRONTEND)-$(TESTS)
+
 
 $(FRONTEND)-$(TESTS): bin
 	cd $(TESTS) && make
