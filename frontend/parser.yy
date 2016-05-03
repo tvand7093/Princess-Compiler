@@ -7,7 +7,7 @@
 #include <string>
 #include <vector>
 #include "AST.hpp"
-
+  
 %}
 
 /*** yacc/bison Declarations ***/
@@ -56,7 +56,7 @@
     int  			integerVal;
     double 			doubleVal;
     std::string*		stringVal;
-    class CalcNode*		calcnode;
+    class BaseNode*		calcnode;
 }
 
 %token			END	     0	"end of file"

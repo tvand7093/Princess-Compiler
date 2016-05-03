@@ -1,8 +1,5 @@
 bin
-generated
 *~
 *\#
 *.o
 
-parser.h
-parser.cpp

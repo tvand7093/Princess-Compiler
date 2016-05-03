@@ -1,9 +1,13 @@
 
 FRONTEND = frontend
+TESTS = tests
 ROOT = $(shell pwd)
 OUTPUT = bin
 SYSTEM = $(shell uname -s)
 DEP-INSTALL = ''
+
+FRONTEND_EXEC = $(FRONTEND)/frontend
+
 
 ifeq ($(SYSTEM),Linux)
 	DEP-INSTALL = sudo apt-get install flex bison=3.0.4
@@ -12,13 +16,19 @@ ifeq ($(SYSTEM),Darwin)
 	DEP-INSTALL = brew update && brew install bison flex && brew link bison --force
 endif
 
-all: bin frontend
+all: bin $(OUTPUT)/$(FRONTEND)
 
-frontend: princess
-	mv $(FRONTEND)/princess $(OUTPUT)/princess
+test: $(FRONTEND)-$(TESTS)
 
-princess:
-	cd $(FRONTEND) && make all && cd $(ROOT)
+$(FRONTEND)-$(TESTS): bin
+	cd $(TESTS) && make
+	mv $(TESTS)/$(OUTPUT)/$@ $(OUTPUT)/$@
+
+$(OUTPUT)/$(FRONTEND): $(FRONTEND_EXEC)
+	mv $^ $@
+
+$(FRONTEND_EXEC):
+	cd $(FRONTEND) && make all
 
 install-deps:
 	$(DEP-INSTALL)
@@ -26,8 +36,12 @@ install-deps:
 bin:
 	@mkdir $(OUTPUT)
 
-clean: clobber
-
-clobber:
+clean: 
 	rm -rf $(OUTPUT)
-	cd $(FRONTEND) && make clobber && cd $(ROOT)
+
+clobber: clean clobber-tests
+	cd $(FRONTEND) && make clobber
+	rm *~ \#*
+
+clobber-tests:
+	cd $(TESTS) && make clobber
