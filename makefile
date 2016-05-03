@@ -19,7 +19,6 @@ endif
 all: bin $(OUTPUT)/$(FRONTEND)
 
 test: $(FRONTEND)-$(TESTS)
-	./$(OUTPUT)/$(FRONTEND)-$(TESTS)
 
 $(FRONTEND)-$(TESTS): bin
 	cd $(TESTS) && make
