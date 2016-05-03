@@ -1,5 +1,6 @@
 
 FRONTEND = frontend
+TESTS = tests
 ROOT = $(shell pwd)
 OUTPUT = bin
 SYSTEM = $(shell uname -s)
@@ -14,8 +15,14 @@ endif
 
 all: bin frontend
 
+tests: $(FRONTEND)-$(TESTS)
+
+$(FRONTEND)-$(TESTS): bin
+	cd $(TESTS) && make
+	mv $(TESTS)/$(OUTPUT)/$@ $(OUTPUT)/$@
+
 frontend: princess
-	mv $(FRONTEND)/princess $(OUTPUT)/princess
+	mv $(FRONTEND)/$^ $(OUTPUT)/$@
 
 princess:
 	cd $(FRONTEND) && make all && cd $(ROOT)
@@ -26,8 +33,12 @@ install-deps:
 bin:
 	@mkdir $(OUTPUT)
 
-clean: clobber
-
-clobber:
+clean: 
 	rm -rf $(OUTPUT)
-	cd $(FRONTEND) && make clobber && cd $(ROOT)
+
+clobber: clean clobber-tests
+	cd $(FRONTEND) && make clobber
+	rm *~ \#*
+
+clobber-tests:
+	cd $(TESTS) && make clobber
