@@ -6,26 +6,15 @@
 
 #include <string>
 #include <vector>
+#include "LanguageContext.h"
 
-// forward declaration
-namespace PL {
-class CalcContext;
-}
-/** The example namespace is used to encapsulate the three parser classes
- * example::Parser, example::Scanner and example::Driver */
 namespace PL {
 
-/** The Driver class brings together all components. It creates an instance of
- * the Parser and Scanner classes and connects them. Then the input stream is
- * fed into the scanner object and the parser gets it's token
- * sequence. Furthermore the driver object is available in the grammar rules as
- * a parameter. Therefore the driver class contains a reference to the
- * structure into which the parsed data is saved. */
 class Driver
 {
 public:
     /// construct a new parser driver context
-  Driver(class CalcContext& calc);
+  Driver(class LanguageContext& ctx);
 
     /// enable debug output in the flex scanner
     bool trace_scanning;
@@ -65,11 +54,8 @@ public:
 
     /** Error handling with associated line number. This can be modified to
      * output the error e.g. to a dialog box. */
-    void error(const class location& l, const std::string& m);
-
-    /** General error handling. This can be modified to output the error
-     * e.g. to a dialog box. */
     void error(const std::string& m);
+
 
     /** Pointer to the current lexer instance, this is used to connect the
      * parser to the scanner. It is used in the yylex macro. */
@@ -77,7 +63,7 @@ public:
 
     /** Reference to the calculator context filled during parsing of the
      * expressions. */
-    class CalcContext& calc;
+    class LanguageContext& calc;
 };
 
 } // namespace example

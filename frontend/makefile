@@ -1,45 +1,34 @@
 CXX = g++
-LEX = flex
-YACC = bison
+CXX_STD = c++11
+SRC = src
+SRCS = $(wildcard $(SRC)/*.cpp)
+INCLUDE = include
 
-CXXFLAGS = -W -Wall -Wextra -ansi -g
 LDFLAGS = 
+OBJ_DIR = obj
 
-OBJ = obj
-OBJECTS = princess.o parser.o scanner.o driver.o
+TMP = princess.o parser.o scanner.o driver.o
+OBJECTS = $(addprefix $(OBJ_DIR)/, $(notdir $(SRCS:.cpp=.o)))
 
-OUT_EXEC = frontend
+EXEC = frontend
 
-HEADERS = driver.h parser.h scanner.h expression.h \
-    y.tab.h PrincessFlexLexer.h location.hh position.hh stack.hh
+HEADERS = driver.h parser.h scanner.h
 
-all: $(OUT_EXEC) move-objs
+CXXFLAGS = -W -Wall -Wextra -ansi -g -I$(INCLUDE) -std=$(CXX_STD) -MMD $(OBJECTS:.o=.d)
 
-move-objs: $(OBJ) $(OBJECTS)
-	@mv *.o $(OBJ)/
-
-# Generate scanner and parser
-parser.cpp: parser.yy
-	$(YACC) -o $@ --defines=parser.h $^ 
-
-scanner.cpp: scanner.ll
-	$(LEX) -o $@ $^
-
+all: $(OBJ_DIR) $(EXEC)
+	
 # Implicit rule to compile c++ files
-
-%.o: %.cpp
+$(OBJ_DIR)/%.o: $(SRC)/%.cpp
 	$(CXX) $(CXXFLAGS) -c -o $@ $<
 
 # Link executable
 
-$(OUT_EXEC): $(OBJECTS)
+$(EXEC): $(OBJECTS)
 	$(CXX) $(LDFLAGS) -o $@ $^
 
 clean:
-	rm -f princess *.o *~ \#*
+	rm -rf princess *.o *~ \#* $(OBJ_DIR)
 
-clobber: clean
-	rm -f parser.cpp parser.h scanner.cpp
-
-$(OBJ):
+$(OBJ_DIR):
 	@mkdir -p $@
