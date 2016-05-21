@@ -5,7 +5,7 @@ TESTS_EXEC = frontend-tests
 
 # Parser and lexer binary stuff
 FRONTEND = frontend
-FRONTEND_LIB = $(FRONTEND)/$(FRONTEND).a
+FRONTEND_LIB = $(FRONTEND)/libFrontend.a
 FRONTEND_TESTS = $(TESTS)/$(TESTS_EXEC)
 FRONTEND_INCLUDE = $(FRONTEND)/include
 

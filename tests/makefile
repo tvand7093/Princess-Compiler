@@ -5,7 +5,7 @@ GTEST_BUILD = $(GTEST_CLONE_DIR)/$(GTEST_DIR)
 GTEST_INCLUDE = $(GTEST_BUILD)/include
 
 FRONTEND_INCLUDE = ../frontend/include
-FRONTEND_LIB = ../frontend/frontend.a
+FRONTEND_LIB = ../frontend/libFrontend.a
 
 BUILD = build
 BIN = bin

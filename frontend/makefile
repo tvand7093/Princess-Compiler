@@ -9,7 +9,7 @@ OBJ_DIR = obj
 
 OBJECTS = $(addprefix $(OBJ_DIR)/, $(notdir $(SRCS:.cpp=.o)))
 
-EXEC = frontend.a
+EXEC = libFrontend.a
 
 CXXFLAGS = -W -Wall -Wextra -g -I$(INCLUDE) -std=$(CXX_STD)
 
@@ -20,7 +20,7 @@ $(EXEC): $(OBJECTS)
 
 # Implicit rule to compile c++ files
 $(OBJ_DIR)/%.o: $(SRC)/%.cpp
-	$(CXX) $(CXXFLAGS) -c -o $@ $<
+	$(CXX) $(CXXFLAGS) -c $< -o $@ 
 
 clean:
 	@rm -rf  *.o *~ \#* $(OBJ_DIR) $(EXEC)
