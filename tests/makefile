@@ -17,7 +17,7 @@ all: $(BIN) $(BUILD) google-test-clone $(OUTPUT)
 	@./$(OUTPUT)
 
 $(OUTPUT): $(TESTS) $(BUILD)/libgtest.a
-	@$(CXX) -std=c++11 -isystem $(GTEST_BUILD) -I$(GTEST_INCLUDE) -I$(FRONTEND_INCLUDE) -pthread $(FRONTEND_LIB) $^ -o $@
+	$(CXX) -std=c++11 -isystem $(GTEST_BUILD) -I$(GTEST_INCLUDE) -I$(FRONTEND_INCLUDE) -pthread $(FRONTEND_LIB) $^ -o $@
 
 $(BUILD)/libgtest.a: $(GTEST_BUILD)/gtest-all.o
 	@ar -rs $@ $^
