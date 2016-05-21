@@ -3,16 +3,18 @@
 
 #include <fstream>
 #include <sstream>
-
-#include "driver.hpp"
+#include <iostream>
+#include "LanguageContext.h"
+#include "driver.h"
 #include "scanner.h"
+#include "parser.h"
 
 namespace PL {
 
-Driver::Driver(class CalcContext& _calc)
+Driver::Driver(class LanguageContext& _ctx)
     : trace_scanning(false),
       trace_parsing(false),
-      calc(_calc)
+      ctx(_ctx)
 {
 }
 
@@ -40,12 +42,6 @@ bool Driver::parse_string(const std::string &input, const std::string& sname)
 {
     std::istringstream iss(input);
     return parse_stream(iss, sname);
-}
-
-void Driver::error(const class location& l,
-		   const std::string& m)
-{
-    std::cerr << l << ": " << m << std::endl;
 }
 
 void Driver::error(const std::string& m)

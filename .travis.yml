@@ -1,14 +1,9 @@
 language: cpp
 os:
   - osx
+  
+script: make test
 
-before_install:
-  - brew update
-  - brew install flex
-  - brew install bison
-  - brew link bison --force
-
-script: make && make test
 compiler:
   - clang
   - gcc

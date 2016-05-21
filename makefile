@@ -1,47 +1,51 @@
 
-FRONTEND = frontend
+# Test folders and execs
 TESTS = tests
-ROOT = $(shell pwd)
-OUTPUT = bin
-SYSTEM = $(shell uname -s)
-DEP-INSTALL = ''
+TESTS_EXEC = frontend-tests
 
-FRONTEND_EXEC = $(FRONTEND)/frontend
+# Parser and lexer binary stuff
+FRONTEND = frontend
+FRONTEND_LIB = $(FRONTEND)/libFrontend.a
+FRONTEND_TESTS = $(TESTS)/$(TESTS_EXEC)
+FRONTEND_INCLUDE = $(FRONTEND)/include
 
+# The complete end result
+EXEC = princess
+EXEC_MAIN = $(EXEC).cpp
+EXEC_COMPILER = g++
+EXEC_STD = -std=c++11
+EXEC_OPTS = -g -Wall -pedantic $(FRONTEND_LIB) -I$(FRONTEND_INCLUDE)
 
-ifeq ($(SYSTEM),Linux)
-	DEP-INSTALL = sudo apt-get install flex bison=3.0.4
-endif
-ifeq ($(SYSTEM),Darwin)
-	DEP-INSTALL = brew update && brew install bison flex && brew link bison --force
-endif
+# Build everything EXCLUDING but tests.
+all: $(EXEC)
 
-all: bin $(OUTPUT)/$(FRONTEND)
+# Build everything INCLUDING tests
+test: $(FRONTEND_TESTS)
 
-test: $(FRONTEND)-$(TESTS)
+$(EXEC): $(FRONTEND_LIB) $(EXEC_MAIN)
+	$(EXEC_COMPILER) $(EXEC_OPTS) $(EXEC_STD) $(EXEC_MAIN) -o $(EXEC)
 
-$(FRONTEND)-$(TESTS): bin
-	cd $(TESTS) && make
-	mv $(TESTS)/$(OUTPUT)/$@ $(OUTPUT)/$@
+# Build the test exe
+$(FRONTEND_TESTS): $(FRONTEND_LIB)
+	@cd $(TESTS) && make
 
-$(OUTPUT)/$(FRONTEND): $(FRONTEND_EXEC)
-	mv $^ $@
+# Build the frontend library 
+$(FRONTEND_LIB):
+	@cd $(FRONTEND) && make
 
-$(FRONTEND_EXEC):
-	cd $(FRONTEND) && make all
+# Clean up all temp files and object files for everything
+clean: clean-tests
+	@rm -rf $(EXEC) $(EXEC).dSYM
+	@cd $(FRONTEND) && make clean
+	
+# Clean up temp files for tests. Leaves the Google Test repo in place
+clean-tests:
+	@cd $(TESTS) && make clean
 
-install-deps:
-	$(DEP-INSTALL)
-
-bin:
-	@mkdir $(OUTPUT)
-
-clean: 
-	rm -rf $(OUTPUT)
-
+# Clear everything, including the Google Test repo.
 clobber: clean clobber-tests
-	cd $(FRONTEND) && make clobber
-	rm *~ \#*
+	@cd $(FRONTEND) && make clobber
+	@rm -rf *~ \#*
 
 clobber-tests:
-	cd $(TESTS) && make clobber
+	@cd $(TESTS) && make clobber

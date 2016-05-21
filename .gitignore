@@ -3,3 +3,9 @@ bin
 *\#
 *.o
 
+.vs*
+.DS_Store
+obj
+*.a
+princess
+*.dSYM
