@@ -12,7 +12,7 @@ FRONTEND_INCLUDE = $(FRONTEND)/include
 # The complete end result
 EXEC = princess
 EXEC_MAIN = $(EXEC).cpp
-EXEC_COMPILER = g++
+EXEC_COMPILER = clang++ #g++
 EXEC_STD = -std=c++11
 EXEC_OPTS = -g -Wall -pedantic $(FRONTEND_LIB) -I$(FRONTEND_INCLUDE)
 
