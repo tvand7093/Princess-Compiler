@@ -12,7 +12,6 @@ FRONTEND_INCLUDE = $(FRONTEND)/include
 # The complete end result
 EXEC = princess
 EXEC_MAIN = $(EXEC).cpp
-EXEC_COMPILER = clang++ #g++
 EXEC_STD = -std=c++11
 EXEC_OPTS = -g -Wall -pedantic $(FRONTEND_LIB) -I$(FRONTEND_INCLUDE)
 
@@ -23,7 +22,7 @@ all: $(EXEC)
 test: $(FRONTEND_TESTS)
 
 $(EXEC): $(FRONTEND_LIB) $(EXEC_MAIN)
-	$(EXEC_COMPILER) $(EXEC_OPTS) $(EXEC_STD) $(EXEC_MAIN) -o $(EXEC)
+	$(CXX) $(EXEC_OPTS) $(EXEC_STD) $(EXEC_MAIN) -o $(EXEC)
 
 # Build the test exe
 $(FRONTEND_TESTS): $(FRONTEND_LIB)

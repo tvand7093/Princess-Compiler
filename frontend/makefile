@@ -1,4 +1,3 @@
-CXX = clang++ #g++
 CXX_STD = c++11
 SRC = src
 SRCS = $(wildcard $(SRC)/*.cpp)
