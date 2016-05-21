@@ -35,6 +35,7 @@ $(FRONTEND_LIB):
 
 # Clean up all temp files and object files for everything
 clean: clean-tests
+	@rm -rf $(EXEC) $(EXEC).dSYM
 	@cd $(FRONTEND) && make clean
 	
 # Clean up temp files for tests. Leaves the Google Test repo in place
