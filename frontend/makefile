@@ -7,7 +7,6 @@ INCLUDE = include
 LDFLAGS = 
 OBJ_DIR = obj
 
-TMP = princess.o parser.o scanner.o driver.o
 OBJECTS = $(addprefix $(OBJ_DIR)/, $(notdir $(SRCS:.cpp=.o)))
 
 EXEC = frontend
@@ -18,14 +17,17 @@ CXXFLAGS = -W -Wall -Wextra -g -I$(INCLUDE) -std=$(CXX_STD)
 
 all: $(OBJ_DIR) $(EXEC)
 
+$(EXEC): $(OBJECTS)
+	ar rvs $@.a $(OBJECTS)
+	
 # Implicit rule to compile c++ files
 $(OBJ_DIR)/%.o: $(SRC)/%.cpp
 	$(CXX) $(CXXFLAGS) -c -o $@ $<
 
 # Link executable
 
-$(EXEC): $(OBJECTS)
-	$(CXX) $(CXXFLAGS) $(LDFLAGS) -o $@ $^
+#$(EXEC): $(OBJECTS)
+#	$(CXX) $(CXXFLAGS) $(LDFLAGS) -o $@ $^
 
 clean:
 	rm -rf princess *.o *~ \#* $(OBJ_DIR)

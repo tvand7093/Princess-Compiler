@@ -6,4 +6,4 @@ bin
 .vs*
 .DS_Store
 obj
-frontend
+*.a

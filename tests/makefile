@@ -4,6 +4,9 @@ GTEST_DIR = googletest
 GTEST_BUILD = $(GTEST_CLONE_DIR)/$(GTEST_DIR)
 GTEST_INCLUDE = $(GTEST_BUILD)/include
 
+FRONTEND_INCLUDE = ../frontend/include
+FRONTEND_LIB = ../frontend/frontend.a
+
 BUILD = build
 BIN = bin
 TESTS = frontend-tests.cpp
@@ -14,8 +17,8 @@ OUTPUT = $(BIN)/frontend-tests
 all: $(BIN) $(BUILD) google-test-clone $(OUTPUT)
 	./$(OUTPUT)
 
-$(OUTPUT): $(TESTS) $(BUILD)/libgtest.a
-	g++ -isystem $(GTEST_BUILD) -I$(GTEST_INCLUDE) -pthread $^ -o $@
+$(OUTPUT): $(TESTS) $(BUILD)/libgtest.a $(FRONTEND_LIB)
+	g++ -std=c++11 -isystem $(GTEST_BUILD) -I$(GTEST_INCLUDE) -I$(FRONTEND_INCLUDE) -pthread $^ -o $@
 
 $(BUILD)/libgtest.a: $(GTEST_BUILD)/gtest-all.o
 	ar -rv $@ $^
