@@ -2,6 +2,14 @@
 # Creator: Tyler Vanderhoef
 # https://travis-ci.org/tvand7093/Princess-Language
 
+# Specify the OS types to build on
+matrix:
+  include:
+    - os: linux
+      sudo: false
+    - os: osx
+      sudo: false
+            
 # The language to use while building
 language: cpp
 
@@ -14,6 +22,26 @@ compiler:
   - clang
   - gcc
   
+# before_install:
+#   - ./travis/before-install.sh
+
+install:
+  - if [ "$CXX" = "g++" ]; then export CXX="g++-4.8" CC="gcc-4.8"; fi
+
+addons:
+  apt:
+    sources:
+    - ubuntu-toolchain-r-test
+    packages:
+    # - libyajl-dev
+    # - libxml2-dev
+    - gcc-4.8
+    - g++-4.8
+    - clang
+
+notifications:
+  email: false
+
 # Handle git submodule for the 'docs' sub-project
 git:
   submodules: false
