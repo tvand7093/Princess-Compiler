@@ -1,16 +1,24 @@
+# Travis CI build configuration
+# Creator: Tyler Vanderhoef
+# https://travis-ci.org/tvand7093/Princess-Language
+
+# The language to use while building
 language: cpp
-os:
-  - osx
-  
+
+# The script to run when it builds on Travis CI
 script: make test
 
+# The compiler to target. Here, we use both clang and gcc to see
+# if the build works for both systems.
 compiler:
   - clang
   - gcc
-# Handle git submodules yourself
+  
+# Handle git submodule for the 'docs' sub-project
 git:
   submodules: false
   # Use sed to replace the SSH URL with the public URL, then initialize submodules
+  # otherwise it breaks Travis since it cannot use SSH.
   before_install:
     - sed -i 's/git@github.com:/https:\/\/github.com\//' .gitmodules
     - git submodule update --init --recursive
