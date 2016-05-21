@@ -49,16 +49,20 @@ int main(int argc, char* argv[]){
       bool result = driver.parse_string(line, "input");
 
       if (result)
-	{
-	  // for (unsigned int ei = 0; ei < calc.expressions.size(); ++ei)
-	  //   {
-	  //     std::cout << "tree:" << std::endl;
-	  //     //calc.expressions[ei]->print(std::cout);
-	  //     std::cout << "evaluated: "
-		// 	//<< calc.expressions[ei]->evaluate()
-		// 	<< std::endl;
-	  //   }
-	}
+			{
+				std::cout << "Valid input" << std::endl;
+				// for (unsigned int ei = 0; ei < calc.expressions.size(); ++ei)
+				//   {
+				//     std::cout << "tree:" << std::endl;
+				//     //calc.expressions[ei]->print(std::cout);
+				//     std::cout << "evaluated: "
+				// 	//<< calc.expressions[ei]->evaluate()
+				// 	<< std::endl;
+				//   }
+			}
+			else {
+				std::cout << "Invalid input" << std::endl;
+			}
     }
 
   return 0;

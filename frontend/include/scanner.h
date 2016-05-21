@@ -2,8 +2,6 @@
 #ifndef PRINCESS_SCANNER_H
 #define PRINCESS_SCANNER_H
 
-#include "parser.h"
-
 namespace PL {
 
 /** Scanner is a derived class to add some extra function to the scanner
@@ -15,11 +13,12 @@ class PrincessScanner
 {
     private:
         std::istream *_inStream;
+        bool isDebug;
 public:
 
     PrincessScanner(std::istream *in) : _inStream{in} {}
     
-    void set_debug(const bool shouldDebug);
+    inline void set_debug(bool shouldDebug) { isDebug = shouldDebug; }
 };
 
 } // namespace example

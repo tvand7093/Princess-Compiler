@@ -14,10 +14,10 @@ EXEC = frontend
 
 HEADERS = driver.h parser.h scanner.h
 
-CXXFLAGS = -W -Wall -Wextra -ansi -g -I$(INCLUDE) -std=$(CXX_STD) -MMD $(OBJECTS:.o=.d)
+CXXFLAGS = -W -Wall -Wextra -g -I$(INCLUDE) -std=$(CXX_STD)
 
 all: $(OBJ_DIR) $(EXEC)
-	
+
 # Implicit rule to compile c++ files
 $(OBJ_DIR)/%.o: $(SRC)/%.cpp
 	$(CXX) $(CXXFLAGS) -c -o $@ $<
@@ -25,7 +25,7 @@ $(OBJ_DIR)/%.o: $(SRC)/%.cpp
 # Link executable
 
 $(EXEC): $(OBJECTS)
-	$(CXX) $(LDFLAGS) -o $@ $^
+	$(CXX) $(CXXFLAGS) $(LDFLAGS) -o $@ $^
 
 clean:
 	rm -rf princess *.o *~ \#* $(OBJ_DIR)

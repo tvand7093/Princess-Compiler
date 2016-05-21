@@ -3,3 +3,7 @@ bin
 *\#
 *.o
 
+.vs*
+.DS_Store
+obj
+frontend

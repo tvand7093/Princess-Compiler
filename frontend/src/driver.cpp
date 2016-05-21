@@ -7,13 +7,14 @@
 #include "LanguageContext.h"
 #include "driver.h"
 #include "scanner.h"
+#include "parser.h"
 
 namespace PL {
 
-Driver::Driver(class LanguageContext& _calc)
+Driver::Driver(class LanguageContext& _ctx)
     : trace_scanning(false),
       trace_parsing(false),
-      calc(_calc)
+      ctx(_ctx)
 {
 }
 

@@ -63,7 +63,7 @@ public:
 
     /** Reference to the calculator context filled during parsing of the
      * expressions. */
-    class LanguageContext& calc;
+    class LanguageContext& ctx;
 };
 
 } // namespace example
