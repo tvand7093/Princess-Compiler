@@ -7,18 +7,11 @@ os:
   - linux
   - osx
 
-# matrix:
-#   include:
-#     - os: linux
-#       sudo: false
-#     - os: osx
-#       sudo: false
-            
 # The language to use while building
 language: cpp
 
 # The script to run when it builds on Travis CI
-script: make test
+script: make && make test
 
 # The compiler to target. Here, we use both clang and gcc to see
 # if the build works for both systems.
@@ -42,7 +35,9 @@ addons:
     - clang
 
 notifications:
-  email: false
+  email: 
+    on_success: never
+    on_failure: always
 
 # Handle git submodule for the 'docs' sub-project
 git:
