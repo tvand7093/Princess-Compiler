@@ -1,4 +1,3 @@
-CXX = clang++ #g++
 CXX_STD = c++11
 SRC = src
 SRCS = $(wildcard $(SRC)/*.cpp)
@@ -9,7 +8,7 @@ OBJ_DIR = obj
 
 OBJECTS = $(addprefix $(OBJ_DIR)/, $(notdir $(SRCS:.cpp=.o)))
 
-EXEC = libFrontend.a
+EXEC = libfrontend.a
 
 CXXFLAGS = -W -Wall -Wextra -g -I$(INCLUDE) -std=$(CXX_STD)
 

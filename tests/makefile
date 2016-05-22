@@ -4,8 +4,10 @@ GTEST_DIR = googletest
 GTEST_BUILD = $(GTEST_CLONE_DIR)/$(GTEST_DIR)
 GTEST_INCLUDE = $(GTEST_BUILD)/include
 
-FRONTEND_INCLUDE = ../frontend/include
-FRONTEND_LIB = ../frontend/libFrontend.a
+FRONTEND = frontend
+FRONTEND_DIR = ../$(FRONTEND)
+FRONTEND_INCLUDE = $(FRONTEND_DIR)/include
+FRONTEND_LINK = -L$(FRONTEND_DIR) -l$(FRONTEND)
 
 BUILD = build
 BIN = bin
@@ -17,14 +19,14 @@ all: $(BIN) $(BUILD) google-test-clone $(OUTPUT)
 	@./$(OUTPUT)
 
 $(OUTPUT): $(TESTS) $(BUILD)/libgtest.a
-	@g++ -std=c++11 -isystem $(GTEST_BUILD) -I$(GTEST_INCLUDE) -I$(FRONTEND_INCLUDE) -pthread $(FRONTEND_LIB) $^ -o $@
+	$(CXX) -std=c++11 -isystem $(GTEST_BUILD) -I$(GTEST_INCLUDE) -I$(FRONTEND_INCLUDE) -pthread $^ -o $@ $(FRONTEND_LINK)
 
 $(BUILD)/libgtest.a: $(GTEST_BUILD)/gtest-all.o
 	@ar -rs $@ $^
 
 $(GTEST_BUILD)/gtest-all.o: $(GTEST_BUILD)/src/gtest-all.cc
 	@echo "Building Google Test Library..."
-	@g++ -isystem $(GTEST_BUILD)/include -I$(GTEST_BUILD) -pthread -c $^ -o $@
+	@$(CXX) -isystem $(GTEST_BUILD)/include -I$(GTEST_BUILD) -pthread -c $^ -o $@
 
 google-test-clone:
 	@if [ ! -d "$(GTEST_CLONE_DIR)" ]; then \
