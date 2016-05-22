@@ -8,7 +8,7 @@ OBJ_DIR = obj
 
 OBJECTS = $(addprefix $(OBJ_DIR)/, $(notdir $(SRCS:.cpp=.o)))
 
-EXEC = libFrontend.a
+EXEC = libfrontend.a
 
 CXXFLAGS = -W -Wall -Wextra -g -I$(INCLUDE) -std=$(CXX_STD)
 
