@@ -6,7 +6,7 @@ TEST(TestTrue, Fails){
   PL::LanguageContext ctx;
   PL::Driver driver(ctx);
   
-  ASSERT_FALSE(driver.parse_string(""));
+  ASSERT_TRUE(driver.parse_string(""));
 }
 
 int main(int argc, char** argv){
