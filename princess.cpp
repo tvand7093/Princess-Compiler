@@ -2,6 +2,7 @@
 #include <fstream>
 
 #include "driver.h"
+#include "LanguageContext.h"
 #include "AST.h"
 
 
